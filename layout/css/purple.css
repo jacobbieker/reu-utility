@@ -1,0 +1,124 @@
+/* Purple Theme */
+
+.jumbotron {
+	background: #aa61d8 url('../images/purple.jpg') repeat-x;
+}
+
+.jumbotron .container {
+	color: #fff;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #8831b3;
+  border-color: #7226a0;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #bb77e4;
+  border-color: #8249a6;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+.btn-success {
+  color: #fff;
+  background-color: #a75fd1;
+  border-color: #8951aa;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #b575db;
+  border-color: #9762b6;
+}
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+
+.btn-danger {
+  color: #fff;
+  background-color: #8c8c8c;
+  border-color: #807272;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #9e9e9e;
+  border-color: #918888;
+}
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+a {
+  color: #b267e1;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #8c55af;
+  text-decoration: underline;
+}
+
+.jumbotron a {
+  color: #4b1763;
+  text-decoration: none;
+}
+
+.jumbotron a:hover,
+.jumbotron a:focus {
+  color: #341045;
+  text-decoration: underline;
+}
+
+a.btn {
+	color: #fff;
+}
+
+a:hover.btn,
+a:focus.btn {
+	color: #fff;
+	text-decoration: none;
+}
+
+h1 small {
+	color: #ebd7f7;
+}
+
+
+.form-control:focus {
+  border-color: #d0a7ed;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(224, 196, 244, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(224, 196, 244, .6);
+}
+
+blockquote p {
+	font-size: 15px;
+}

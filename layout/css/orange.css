@@ -1,0 +1,126 @@
+/* Orange Theme */
+
+.jumbotron {
+	background: #f29e59 url('../images/orange.jpg') repeat-x;
+}
+
+.jumbotron .container {
+	color: #fff;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #e07314;
+  border-color: #c75510;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #f4a96c;
+  border-color: #dc8035;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+.btn-success {
+  color: #fff;
+  background-color: #e28b41;
+  border-color: #c06a20;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #eca162;
+  border-color: #d07b33;
+}
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+
+.btn-danger {
+  color: #fff;
+  background-color: #8c8c8c;
+  border-color: #807272;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #9e9e9e;
+  border-color: #918888;
+}
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+.jumbotron a {
+  color: #853e0f;
+  text-decoration: none;
+}
+
+.jumbotron a:hover,
+.jumbotron a:focus {
+  color: #ac5e1a;
+  text-decoration: underline;
+}
+
+a.btn {
+	color: #fff;
+}
+
+a:hover.btn,
+a:focus.btn {
+	color: #fff;
+	text-decoration: none;
+}
+
+
+
+a {
+  color: #df7111;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #b46520;
+  text-decoration: underline;
+}
+
+h1 small {
+	color: #f4ddbe;
+}
+
+
+.form-control:focus {
+  border-color: #d6aa82;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 176, 102, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 176, 102, .6);
+}
+
+blockquote p {
+	font-size: 15px;
+}

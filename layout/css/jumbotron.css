@@ -1,0 +1,17 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.col-centered{
+    margin: 0 auto;
+}
+
+#textbox {
+	display: none;
+}
+
+blockquote p {
+	font-size: 15px;
+}

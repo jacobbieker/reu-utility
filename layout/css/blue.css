@@ -1,0 +1,126 @@
+/* Blue Theme */
+
+.jumbotron {
+	background: #3973dd url('../images/blue.jpg') repeat-x;
+}
+
+.jumbotron .container {
+	color: #fff;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #3159cb;
+  border-color: #1c3989;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #578cee;
+  border-color: #3556ae;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+.btn-success {
+  color: #fff;
+  background-color: #416bce;
+  border-color: #274b9f;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #6e92e4;
+  border-color: #4d6eba;
+}
+.btn-success:active,
+.btn-success.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+
+.btn-danger {
+  color: #fff;
+  background-color: #8c8c8c;
+  border-color: #807272;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #9e9e9e;
+  border-color: #918888;
+}
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-primary {
+  background-image: none;
+}
+
+
+a {
+  color: #6794ea;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #3664bc;
+  text-decoration: underline;
+}
+
+.jumbotron a {
+  color: #1a306f;
+  text-decoration: none;
+}
+
+.jumbotron a:hover,
+.jumbotron a:focus {
+  color: #0e1d48;
+  text-decoration: underline;
+}
+
+a.btn {
+	color: #fff;
+}
+
+a:hover.btn,
+a:focus.btn {
+	color: #fff;
+	text-decoration: none;
+}
+
+h1 small {
+	color: #bed0f4;
+}
+
+
+.form-control:focus {
+  border-color: #849fec;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 145, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 145, 233, .6);
+}
+
+
+blockquote p {
+	font-size: 15px;
+}
+	
