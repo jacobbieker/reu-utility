@@ -1,0 +1,22 @@
+label {
+	font-weight: normal;
+}
+
+input[type="radio"] {
+    margin-left: 20px;
+}
+
+.radi {
+	margin-top: 4px;
+	text-align: center;
+	margin-left: -20px;
+
+}
+
+.special {
+	border-bottom: 1px solid #ededed;
+	padding-left: 50px;
+	font-weight: normal;
+	padding-bottom: 4px;
+	margin-bottom: 20px;
+}

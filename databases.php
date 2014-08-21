@@ -62,30 +62,28 @@
 	$email_from['application'] = $emails;
 	
 	
-	// Possibly include these later for program evaluations
-
-	/*// Mentor Evaluations
-	$db_name['mentor_evaluation'] = $db;
-	$db_layout['mentor_evaluation'] = 'Mentor-Evaluations';
-	$success_message['mentor_evaluation'] = 'Thank you for your evaluation!';
-	$email_to['mentor_evaluation'] = $emails;
-	$email_from['application'] = $emails;
+	// Mentor Evaluations
+	$db_name['mentor_eval'] = $db;
+	$db_layout['mentor_eval'] = 'Mentor Survey';
+	$success_message['mentor_eval'] = 'Thank you for your evaluation!';
+	$email_to['mentor_eval'] = $emails;
+	$email_from['mentor_eval'] = $emails;
 
 
 	// PI Evaluations
-	$db_name['pi_evaluation'] = $db;
-	$db_layout['pi_evaluation'] = 'PI Survey';
-	$success_message['pi_evaluation'] = 'Thank you for your evaluation!';
-	$email_to['pi_evaluation'] = $emails;
-	$email_from['application'] = $emails;
+	$db_name['pi_eval'] = $db;
+	$db_layout['pi_eval'] = 'PI Survey';
+	$success_message['pi_eval'] = 'Thank you for your evaluation!';
+	$email_to['pi_eval'] = $emails;
+	$email_from['pi_eval'] = $emails;
 
 
 	// Intern Evaluations
-	$db_name['intern_evaluation'] = $db;
-	$db_layout['intern_evaluation'] = 'Intern-Evaluations';
-	$success_message['intern_evaluation'] = 'Thank you for your evaluation!';
-	$email_to['intern_evaluation'] = $emails;
-	$email_from['application'] = $emails;*/
+	$db_name['intern_eval'] = $db;
+	$db_layout['intern_eval'] = 'Intern Survey';
+	$success_message['intern_eval'] = 'Thank you for your evaluation!';
+	$email_to['intern_eval'] = $emails;
+	$email_from['intern_eval'] = $emails;
 	
 
 ?>
