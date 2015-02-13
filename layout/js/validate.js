@@ -1,16 +1,10 @@
-// Set the onclick to validate the data.
 window.onload=function(){
 	document.getElementById("btn").onclick = validate;
 }
 
-/*
- * Validator function checks if the following fields
- * are properly filled out: First Name, Last Name,
- * College, Email, and Faculty Email Addresses.
- */
 function validate() {
 	var valid = true;
-	var form = document.getElementById('application');
+	var form = document.getElementById('app');
 	var msg = "The following fields must be filled out or changed before continuing:\n"
 	with (form) {
 		if (NameFirst.value == ""){

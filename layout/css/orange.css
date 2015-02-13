@@ -1,5 +1,3 @@
-/* Orange Theme */
-
 .jumbotron {
 	background: #f29e59 url('../images/orange.jpg') repeat-x;
 }
@@ -96,8 +94,6 @@ a:focus.btn {
 	text-decoration: none;
 }
 
-
-
 a {
   color: #df7111;
   text-decoration: none;
@@ -107,6 +103,10 @@ a:hover,
 a:focus {
   color: #b46520;
   text-decoration: underline;
+}
+
+a.list-group-item:hover .list-group-item-heading {
+  color: #b46520;
 }
 
 h1 small {
@@ -120,7 +120,4 @@ h1 small {
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 176, 102, .6);
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 176, 102, .6);
 }
-
-blockquote p {
-	font-size: 15px;
-}
+	

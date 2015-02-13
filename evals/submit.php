@@ -1,8 +1,7 @@
 <?php
 
-include "../layout/header.php";
-require_once ('FileMaker.php');
 include ('../databases.php');
+include "../layout/header.php";
 
 $time = date('l jS \of F Y h:i:s A');
 

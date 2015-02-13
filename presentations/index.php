@@ -1,15 +1,9 @@
 <?php
-/*
- * Display a list of all of the students who have
- * submitted their presentation or poster and 
- * provide the links to view them.
- */
- 
-require ('../pw/login.php');
-include ('../layout/header.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
-// Footer Breadcrumbs
+$pwAcc = getPermissions('presentationView');
+require ('../pw/login.php');
+include "../layout/header.php";
+
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Presentations" => "",
@@ -33,6 +27,21 @@ $result = $request->execute();
     </div>
     
        <div class="container">
+       
+    <?php
+    	// Error Checking.
+	if (FileMaker::isError($result)) {
+    	if ($result->code == 401)
+    		echo "<code>Error:</code> There are currently no students listed as interns. Please changes the 'Triage' field to Intern to add them to this page.";
+    	else
+    		echo "<code>Error:</code> " . $result->getMessage() . "\n";
+    	include "../layout/footer.php";
+    	exit;
+	}
+
+	// Get array of found records
+	$records = $result->getRecords();
+     ?>
 
 
 	<table class="table table-hover" style="width: 80%; margin: 0px auto;">
@@ -48,15 +57,6 @@ $result = $request->execute();
 
 <?php
 
-
-	// Error Checking.
-	if (FileMaker::isError($result)) {
-    	echo "<p>Error: " . $result->getMessage() . "\n</p>";
-    	exit;
-	}
-
-	// Get array of found records
-	$records = $result->getRecords();
 	
 	foreach ($records as $record) {
 		if ($record->getField('presentationOral') != "" || $record->getField('presentationPoster') != "") {

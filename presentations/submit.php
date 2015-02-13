@@ -1,14 +1,6 @@
 <?php
-/* 
- * Uploads the files submitted from the presentation
- * or poster upload. Stores the URLs in the database
- * and a failsafe. Emails the administrator with a
- * the link as well.
- */
- 
-include ('../layout/header.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
+include "../layout/header.php";
 
 $type = "Poster";
 $url = "poster.php";
@@ -16,7 +8,7 @@ if ($_GET['type'] == "pres") {
 	$type = "Presentation";
 	$url = "presentation.php";
 }
-// Footer Breadcrumbs
+
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Upload " . $type => $webFront . "presentations/" . $url,

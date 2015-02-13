@@ -1,16 +1,9 @@
 <?php
-/*
- * Editing page for a single students progress
- * report. Provides forms for any current
- * and previous progress reports. Data is
- * then processed by submit.php.
- */
- 
-require ('../pw/login.php');
-include ('../layout/header.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
-// Footer Breadcrumbs
+$pwAcc = getPermissions('prEdit');
+require ('../pw/login.php');
+include "../layout/header.php";
+
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Progress Reports" => $webFront . "pr",
@@ -79,7 +72,7 @@ change all of your reports on the page, update and submit them independently as 
     <div class="row-fluid">
     <div class="col-sm-3">
     	<select class="form-control" name="prMonth" id="prMonth" placeholder="Month">
-			<option selected="selected" value="no selection"></option>
+			<option selected="selected" value=""></option>
 			<option value="Jan">Jan</option>
 			<option value="Feb">Feb</option>
 			<option value="March">March</option>
@@ -96,7 +89,7 @@ change all of your reports on the page, update and submit them independently as 
     </div>
 	<div class="col-sm-3">
     	<select class="form-control" name="prDay" id="prDay" placeholder="Day">
-			<option selected="selected" value="no selection"></option>
+			<option selected="selected" value=""></option>
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -131,7 +124,7 @@ change all of your reports on the page, update and submit them independently as 
         </select>
 	</div>
 	<div class="col-sm-3">
-		<input type="text" class="form-control" name="prYear" size="3" maxlength="2" value="<?php echo $record->getField('createdYR'); ?>"></input>
+		<input type="text" class="form-control" name="prYear" size="3" maxlength="2" value="<?php echo $year; ?>"></input>
 	</div>
     </div>
   </div>

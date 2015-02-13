@@ -1,12 +1,5 @@
 <?php
 
-/*
- * Accepts data from the abstracts.php form, and
- * submits the data to filemaker and emails to administrator
- * with the updated abstract.
- */
-
-require_once ('FileMaker.php');
 include ('../databases.php');
 
 /*

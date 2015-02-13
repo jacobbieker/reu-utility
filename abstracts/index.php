@@ -1,15 +1,8 @@
 <?php
-/*
- * Displays the current abstracts of all students
- * enrolled in the program.
- */
- 
-require ('../pw/login.php');
-include ('../layout/header.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
-
-// Footer Breadcrumbs
+$pwAcc = getPermissions('abstractsView');
+include "../layout/header.php";
+require ('../pw/login.php');
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Abstracts" => "",
@@ -25,16 +18,6 @@ $bread = array(
 	$request->addSortRule('NameLast', 1, FILEMAKER_SORT_ASCEND);
 	$result = $request->execute();
 	
-
-	// Error Checking.
-	if (FileMaker::isError($result)) {
-    	echo "Error: " . $result->getMessage() . "\n";
-    	exit;
-	}
-
-	// Get array of found records
-	$records = $result->getRecords();
-	
 ?>
 
 
@@ -47,6 +30,21 @@ $bread = array(
     </div>
 
     <div class="container">
+    
+    <?php
+    	// Error Checking.
+	if (FileMaker::isError($result)) {
+    	if ($result->code == 401)
+    		echo "<code>Error:</code> There are currently no students listed as interns. Please changes the 'Triage' field to Intern to add them to this page.";
+    	else
+    		echo "<code>Error:</code> " . $result->getMessage() . "\n";
+    	include "../layout/footer.php";
+    	exit;
+	}
+
+	// Get array of found records
+	$records = $result->getRecords();
+     ?>
 
 	<table class="table table-hover" style="width: 80%; margin: 0px auto;">
 	<thead>

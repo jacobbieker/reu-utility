@@ -1,12 +1,5 @@
 <?php
 
-/*
- * Submit the updated progress report to the
- * database and email the administrator to let
- * with the new progress report.
- */
-
-require_once ('FileMaker.php');
 include ('../databases.php');
 
 /*

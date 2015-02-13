@@ -1,15 +1,25 @@
 <?php
-/*
- * Submits the data taken from the application form
- * in application.php and commits it to the database,
- * sends confirmation emails to the faculty provided
- * by the student, adds data to a textfile in the failsafe,
- * and emails the administrator with the application info.
- */
 
-include_once ('../FileMaker.php');
 require_once ('../databases.php');
-include_once ('banned_ip.php');
+include "../layout/header.php";
+
+//include_once ('banned_ip.php');
+
+$time = date('l jS \of F Y h:i:s A');
+
+?>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Application Submission</h1>
+        <p>The following information was submitted to our database @ <?php echo $time; ?>. Thank you for completing your application.</p>
+        <!--<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>-->
+      </div>
+    </div>
+
+    <div class="container">
+    
+<?php
 
 /*
  * Combination of various validators for the application
@@ -18,7 +28,7 @@ include_once ('banned_ip.php');
  * blocked IP Address.
  */
 function validateDB ($valid, $ip) {
-	global $db_name, $db_layout, $success_message, $email_to, $email_from, $banned;
+	global $db_name, $db_layout, $email_to, $email_from;
 	$msg = "";
 	$db_key;
 	// Does the database key exist?
@@ -32,7 +42,6 @@ function validateDB ($valid, $ip) {
 		// Error checking for database.
 		if(!(array_key_exists($db_key, $db_name) 
 	       && array_key_exists($db_key, $db_layout)
-	       && array_key_exists($db_key, $success_message)
 	       && array_key_exists($db_key, $email_from)
 	       && array_key_exists($db_key, $email_to))) {
 				$msg = "Error: db_key not recognized.";
@@ -59,10 +68,10 @@ function validateDB ($valid, $ip) {
     }
     
 	// Check for blocked IP Adress.
-	if (in_array ($ip, $banned)) {
+	/*if (in_array ($ip, $banned)) {
    		$msg = "Error: This IP Address has been blocked.";
    		$valid = false;
-	}
+	}*/
     
     // Kill the program if invalid
     if (!$valid) {
@@ -133,15 +142,15 @@ function submitToDB ($respondent_data, $fields, $db_key, $fm) {
  */
 function generateTextHTML($db_key) {
 	// Prepare a text and HTML representation of the submitted data
-	$html_data = '<table><tr><td>db_key</td><td>' . $db_key . '</td></tr>';
-	$text_data = 'db_key: ' . $db_key . "\n";
+	$html_data = '<table class="table table-hover" style="width: 75%; margin: 0px auto;"><thead><tr><th>Field Name</th><th>Submitted Value</th></thead><tbody>' ;
+	$text_data = '';
 
 	foreach($_POST as $key => $value) {
 		$html_data .= "<tr><td> ". $key ." </td><td> ". $value ." </td></tr>\n";
 		$text_data .= $key . ": " . $value . "\n";
 	}
 
-	$html_data .="</table>";
+	$html_data .="</tbody></table>";
 	
 	$array = array(
     "html" => $html_data,
@@ -177,7 +186,7 @@ function failsafe($time, $db_key, $text_data) {
  */
 function emailToUs($db_key, $ip, $text_data) {
 	global $email_to;
-	$subject = $db_key . " Submission" ;
+	$subject = ucfirst($db_key) . " Submission" ;
 
 	$browser = getenv("HTTP_USER_AGENT");
 
@@ -193,29 +202,28 @@ function emailToUs($db_key, $ip, $text_data) {
  * Sends the notification to the two references listed by
  * the student who applied.
  */
-function emailToRefs($recID, $year, $db_key) {
+function emailToRefs($recID, $year, $db_key, $fm) {
 	global $email_from;
 	$to1 = $_POST['Faculty1_email'];
 	$to2 = $_POST['Faculty2_email'];
+	$record = $fm->getRecordById('Email Templates', $_GET['recid']);
+
 
 	$subject1 = 'Letter of Recomemndation Request';
-	$message1 = file_get_contents('email.html', true);
-	$message1 = str_replace("[firstName]", $_POST['NameFirst'], $message1);
-	$message1 = str_replace("[lastName]", $_POST['NameLast'], $message1);
-	$message1 = str_replace("[year]", $year, $message1);
-	$message1 = str_replace("[recid]", $recID, $message1);
-	$message1 = str_replace("[number]", "1", $message1);
+
+	$change = array("n=" => "n=1");
+	$message1 = strtr($record->getField('LORrequestLetterCSS'), $change);
+	$message1 = html_entity_decode(chunk_split(base64_encode(html_entity_decode($message1))));
 	
-	$message2 = file_get_contents('email.html', true);
-	$message2 = str_replace("[firstName]", $_POST['NameFirst'], $message1);
-	$message2 = str_replace("[lastName]", $_POST['NameLast'], $message1);
-	$message2 = str_replace("[year]", $year, $message1);
-	$message2 = str_replace("[recid]", $recID, $message1);
-	$message2 = str_replace("[number]", "2", $message1);
+
+	$change = array("n=" => "n=2");
+	$message2 = strtr($record->getField('LORrequestLetterCSS'), $change);
+	$message2 = html_entity_decode(chunk_split(base64_encode(html_entity_decode($message2))));
 
 	// To send HTML mail, the Content-type header must be set
 	$headers  = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	$headers .= 'Content-Transfer-Encoding: base64' . "\r\n";
 
 	// Additional headers
 	$headers .= 'From: ' . $email_from[$db_key];
@@ -228,8 +236,6 @@ function emailToRefs($recID, $year, $db_key) {
 
 
 /* Key global variables for the main program */
-
-$year = "2014"; // fix later!!
 $ip = getenv("REMOTE_ADDR");
 $db_key = validateDB(true, $ip);
 $respondent_data = array(); // Array of all the submited value fields
@@ -258,45 +264,10 @@ failsafe($time, $db_key, $text_data);
 emailToUs($db_key, $ip, $text_data);
 
 if ($sendRef)
-	emailToRefs($recID, $year, $db_key);
+	emailToRefs($recID, $year, $db_key, $fm);
 
+
+echo $html_data;
+include "../layout/footer.php";
 
 ?>
-<!doctype html>
-<html>
-<head>
-    <title>Thank you for your submission</title>
-    <style type="text/css">
-		table {
-    		margin: auto;
-    		text-align: center;
-		}
-
-		table td {
-    		padding: 5px;
-    		border: 1px solid #ccc;
-    		border-collapse: collapse;
-		}
-	</style>
-</head>
-<body>
-
-    
-<div style="text-align: center; margin: 30px;"><h2><?php echo $success_message[$db_key]; ?></h2></div>
-
-<div style="text-align: center; color: #FF0000;">
-<b>Please print this page as proof of your submission:</b><br>
-<input type='button' value='Print Page' onClick='window.print()'>
-</div>
-
-<hr>
-
-<div style="text-align: center;">
-<p>Submission Time: <?php echo $time; ?></p>
-<p>Submitted to the <?php echo $pgmName; ?> server.</p>
-<h2>Submitted Data</h2>
-<?php echo $html_data; ?>
-</div>
-
-</body>
-</html>

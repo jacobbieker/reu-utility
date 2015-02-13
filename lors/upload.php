@@ -1,14 +1,6 @@
 <?php
-/*
- * Upload form for the lor. Accepts input via upload
- * file prompt or a textarea. Data gets processed by
- * submit.php
- */
- 
-include ('../layout/header.php]');
-require_once ('FileMaker.php');
 include ('../databases.php');
-// Footer Breadcrumbs
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Upload LORs" => "",

@@ -1,14 +1,8 @@
 <?php
-/*
- * Editing page for any given student's abstract.
- * For submits through submit.php.
- */
-require ('../pw/login.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
-include ('../layout/header.php');
-
-// Footer breadcrumbs
+$pwAcc = getPermissions('abstractsEdit');
+require ('../pw/login.php');
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Abstracts" => $webFront . "abstracts",
@@ -52,7 +46,7 @@ We advise you to keep a copy of your abstracts from each week that you submit th
     <div class="row-fluid">
     <div class="col-sm-3">
     	<select class="form-control" name="AbstractMonth" id="AbstractMonth" placeholder="Month">
-			<option selected="selected" value="no selection"></option>
+			<option selected="selected" value=""></option>
 			<option value="Jan">Jan</option>
 			<option value="Feb">Feb</option>
 			<option value="March">March</option>
@@ -69,7 +63,7 @@ We advise you to keep a copy of your abstracts from each week that you submit th
     </div>
 	<div class="col-sm-3">
     	<select class="form-control" name="AbstractDay" id="AbstractDay" placeholder="Day">
-			<option selected="selected" value="no selection"></option>
+			<option selected="selected" value=""></option>
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -104,7 +98,7 @@ We advise you to keep a copy of your abstracts from each week that you submit th
         </select>
 	</div>
 	<div class="col-sm-3">
-		<input type="text" class="form-control" name="AbstractYear" size="3" maxlength="2" value="<?php echo $record->getField('createdYR'); ?>"></input>
+		<input type="text" class="form-control" name="AbstractYear" size="3" maxlength="2" value="<?php echo $year; ?>"></input>
 	</div>
     </div>
   </div>

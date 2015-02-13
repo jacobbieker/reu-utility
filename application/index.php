@@ -1,18 +1,11 @@
 <?php
-/*
- * Application form for potential students.
- * processed through submit.php.
- */
-include ('../layout/header.php');
-
-// Footer Breadcrumbs
+	include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Application Form" => "",
 );
  ?>
 
-<script type="text/javascript" src="../layout/valid.js"></script> 
 <style type="text/css">
 
 label {
@@ -32,7 +25,7 @@ label {
     <div class="container">
     
     
-<form id="application" class="form-horizontal" role="form" method="post" action="submit.php?db_key=d2005cc206ccbfdedf2be43a200cb050c538bdb5">
+<form id="app" class="form-horizontal" role="form" method="post" action="submit.php?db_key=d2005cc206ccbfdedf2be43a200cb050c538bdb5">
 	<input type="hidden" name="referencecorr" value= "true" />
 	<input name="block" value="1" type="hidden" />
 	<div class="form-group">
@@ -51,7 +44,7 @@ label {
   <div class="form-group">
     <label for="College" class="col-sm-4 control-label">Your College or University</label>
     <div class="col-sm-6">
-      <input type="College" class="form-control" id="College">
+      <input type="text" class="form-control" name="College" id="College">
     </div>
   </div>
   
@@ -82,7 +75,7 @@ label {
   <div class="form-group">
     <label for="PgmDates" class="col-sm-4 control-label">What dates would you be available for the program?</label>
     <div class="col-sm-6">
-   		<input type="PgmDates" class="form-control" id="PgmDates">
+   		<input type="text" class="form-control" name="PgmDates" id="PgmDates">
     </div>
   </div>
   
@@ -90,14 +83,14 @@ label {
   <div class="form-group">
     <label for="Major" class="col-sm-4 control-label">What is your Major?</label>
     <div class="col-sm-6">
-   		<input type="Major" class="form-control" id="Major">
+   		<input type="text" class="form-control" name="Major" id="Major">
     </div>
   </div>
   
   <div class="form-group">
     <label for="Transfer" class="col-sm-4 control-label">If you transferred from another institution, please list</label>
     <div class="col-sm-6">
-   		<input type="Transfer" class="form-control" id="Transfer">
+   		<input type="text" class="form-control" name="Transfer" id="Transfer">
     </div>
   </div>
   
@@ -172,7 +165,7 @@ label {
 
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-6">
-   		<input type="HPhone" class="form-control" id="HPhone" placeholder="Home Phone">
+   		<input type="text" class="form-control" id="HPhone" name="HPhone" placeholder="Home Phone">
     </div>
   </div>
   
@@ -181,7 +174,7 @@ label {
   <div class="form-group">
     <label for="DOB" class="col-sm-4 control-label">Date of Birth (MM/DD/YY)</label>
     <div class="col-sm-6">
-   		<input type="DOB" class="form-control" id="DOB">
+   		<input type="text" class="form-control" name="DOB" id="DOB">
     </div>
   </div>
   
@@ -232,7 +225,7 @@ label {
 	
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-6">
-   		<input type="RaceOther" class="form-control" id="RaceOther" placeholder="If 'Multiracial or Other', please explain">
+   		<input type="text" class="form-control" id="RaceOther" name="RaceOther" placeholder="If 'Multiracial or Other', please explain">
     </div>
   </div>
   
@@ -252,7 +245,7 @@ label {
 	
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-6">
-   		<input type="DisadvantagedOther" class="form-control" id="DisadvantagedOther" placeholder="If 'Other or multiple', please explain">
+   		<input type="text" class="form-control" id="DisadvantagedOther" name="DisadvantagedOther" placeholder="If 'Other or multiple', please explain">
     </div>
   </div>
   
@@ -331,7 +324,7 @@ label {
 
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-6">
-   		<input type="AdvDegreeOther" class="form-control" id="AdvDegreeOther" placeholder="If 'Other', please specify">
+   		<input type="text" class="form-control" id="AdvDegreeOther" name="AdvDegreeOther" placeholder="If 'Other', please specify">
     </div>
   </div>
   
@@ -364,7 +357,7 @@ label {
             <option value="GMAT">GMAT</option>
             <option value="Other">Other</option>
         </select>
-   		<input style="margin-top:10px;" type="TESTdate" class="form-control" id="TESTdate" placeholder="If so, when do you plan to take the exam?">
+   		<input style="margin-top:10px;" type="text" class="form-control" id="TESTdate" name="TESTdate" placeholder="If so, when do you plan to take the exam?">
     </div>
     </div>
 
@@ -539,7 +532,7 @@ label {
     
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-6">
-   		<input type="ResearchChoiceOther" class="form-control" id="ResearchChoiceOther" placeholder="If 'Other', please explain">
+   		<input type="text" class="form-control" id="ResearchChoiceOther" name="ResearchChoiceOther" placeholder="If 'Other', please explain">
     </div>
   </div>
 
@@ -567,7 +560,7 @@ label {
   <div class="form-group">
 	<label class="col-sm-4 control-label" for="Unofficial transcript">Paste or type your classes and grades here -- (as neatly as possible; no official transcripts or images; please include courses you're currently taking)</label>
   		<div class="col-sm-6">
-  			<textarea class="form-control" rows="6"  name="Unofficial transcript" id="Unofficial transcript"></textarea>
+  			<textarea class="form-control" rows="6" name="Unofficial transcript" id="Unofficial transcript"></textarea>
 		</div>
   </div>
   
@@ -621,5 +614,8 @@ label {
   </div>
 </form>
 
+
+<script type="text/javascript" src="../layout/js/validate.js"></script>
+<script type="text/javascript" src="../layout/js/gradDate.js"></script>  
 
 <?php include "../layout/footer.php"; ?>

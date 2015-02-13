@@ -6,14 +6,11 @@
       <footer>
         <ol class="breadcrumb">
         <?php
-        	// Display Breadcrumbs from the "bread" array.
-        	if (isset($bread)) {
-        		foreach ($bread as $key => &$val) {
-					if ($val == "")
-						echo "<li class='active'>" . $key . "</li>";
-  					else
-  						echo "<li><a href='" . $val . "'>" . $key . "</a></li>";
-  				}
+        	foreach ($bread as $key => &$val) {
+				if ($val == "")
+					echo "<li class='active'>" . $key . "</li>";
+  				else
+  					echo "<li><a href='" . $val . "'>" . $key . "</a></li>";
   			}
 		?>
 		</ol>

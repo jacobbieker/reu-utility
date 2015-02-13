@@ -1,11 +1,5 @@
 <?php
-/*
- * Processes any of the forms submitted for
- * quick mail, and sends the email using the
- * appropriate format.
- */
 
-require_once ('FileMaker.php');
 include ('../databases.php');
 include "../layout/header.php";
 
@@ -27,6 +21,9 @@ if ($type == "regrets") {
 }  elseif ($type == "confirmation") {
 	$crumb = "Email Confirmation Letter";
 	$url = $webFront . "mail/confirmation.php?recid=" . $_GET['recid'] . "&n=" . $_GET['n'];
+} elseif ($type == "professor") {
+	$crumb = "Email Applicants List";
+	$url = $webFront . "mail/professor.php?recid=" . $_GET['recid'] . "&n=" . $_GET['n'];
 }
 
 $bread = array(
@@ -40,6 +37,8 @@ $db_key = 'application';
 $fm->setProperty('database', $db_name[$db_key]);
 
 $record = $fm->getRecordById($db_layout[$db_key], $_GET['recid']);
+$record2 = $fm->getRecordById('Professors', $_GET['recid']);
+
 
 $to = $_POST['to'];
 $subject = $_POST['subject'];
@@ -59,12 +58,17 @@ $n = $_GET['n'];
 if(@mail($to, $subject, $newMessage, $headers)) {
 	if ($_POST['type'] == "regrets") {
 		$record->setField("regretsSent?", "Yes");
+		$result = $record->commit();
 	} else if ($_POST['type'] == "request") {
 		$record->setField("Letter" . $n, "requested");
+		$result = $record->commit();
 	} else if ($_POST['type'] == "confirmation") {
 		$record->setField("Letter" . $n, "acknowledged");
+		$result = $record->commit();
+	} else if ($_POST['type'] == "professor") {
+		$record2->setField("EmailCheck", "Yes");
+		$result = $record2->commit();
 	}
-	$result = $record->commit();
 } else{
   	die("Mail not sent, try again.");
 }

@@ -1,14 +1,6 @@
 <?php
-/*
- * Quick form for the administrator to send
- * an HTML formatted version of the Request LOR
- * letter.
- */
-
-require_once ('FileMaker.php');
 include ('../databases.php');
 include "../layout/header.php";
-// Footer Breadcrumbs
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Email LOR Request" => ""

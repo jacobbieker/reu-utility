@@ -1,21 +1,12 @@
 <?php
-/*
- * Uploads the lor submitted from upload.php to
- * the server and submits the URL to the failsafe 
- * and the database. Also emails the administrator
- * with this link. Textarea values get converted
- * to a pdf using fpdf.
- */
- 
 if (array_key_exists('recid', $_GET) && array_key_exists('n', $_GET)) {
 	$recid = $_GET['recid'];
 	$number = $_GET['n'];
 } else exit;
 
-require('fpdf.php');
-include "../layout/header.php";
-require_once ('FileMaker.php');
 include ('../databases.php');
+include "../layout/header.php";
+require('fpdf.php');
 
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
@@ -62,7 +53,7 @@ function getNewFileName($record, $year, $number) {
  * other files.
  */
 function uploadFile($record, $newFile, $db_key) {
-	global $webFront, $email_to, $bread;
+	global $webFront, $email_to, $bread, $color;
 	if ($_FILES['file']['error'] == 4) { // No upload file
 		if ($_POST['text'] != "") { // Text box submitted - Create PDF version
 			// Path to save PDF
@@ -73,10 +64,11 @@ function uploadFile($record, $newFile, $db_key) {
 			$pdf->SetFont('Arial', '', 12);
 			$pdf->MultiCell(0, 10, $_POST['text']);
 			$pdf->Output($path, 'F');
-			include "../header.php"; // Fix for fpdf
+			include "../layout/header.php"; // Fix for fpdf
+			echo '<div class="jumbotron"><div class="container"><h1>Uploading Your LOR</h1></div></div><div class="container">';
 			// Ouput success message.
 			echo "<p>Thank you, the following Letter of Recommendation has been submitted to our database.</p>";
- 			echo "<p><a href='" . $webFront . "'>Click here</a> to return to the SPUR website.</p>";
+ 			echo "<p><a href='" . $webFront . "'>Click here</a> to return to the home page.</p>";
  			echo "<p><i>" . nl2br($_POST['text']) . "</i></p>";
 		} else {
 			echo "<p> We did not receive your letter, please use the upload tool or type your letter in the box provided. Feel free to <a href='mailto:" . $email_to[$db_key] . "'>email us</a> if you are having any techincal issues.</p>";
@@ -235,7 +227,7 @@ function recordAddition($record, $number, $keys, $db_key) {
 		$result = $record->commit();
 	
 		if (FileMaker::isError($result)) {
-			echo 'Record addition failed: (' . $result->getCode() . ') ' . $result->getMessage() . "\n";
+			echo '<code>Record addition failed:</code> (' . $result->getCode() . ') ' . $result->getMessage() . "\n";
 			include "../layout/footer.php";
 	    	exit;
 		}

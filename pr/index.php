@@ -1,15 +1,8 @@
 <?php
-/*
- * Displays all of the progress reports for students
- * currently enrolled in the program, and links to edit
- * and submit their reports.
- */
- 
-require ('../pw/login.php');
-include ('../layout/header.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
-// Footer Breadcrumbs
+$pwAcc = getPermissions('prView');
+require ('../pw/login.php');
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Progress Reports" => "",
@@ -25,16 +18,6 @@ $bread = array(
 	$request->addSortRule('NameLast', 1, FILEMAKER_SORT_ASCEND);
 	$result = $request->execute();
 	
-
-	// Error Checking.
-	if (FileMaker::isError($result)) {
-    	echo "Error: " . $result->getMessage() . "\n";
-    	exit;
-	}
-
-	// Get array of found records
-	$records = $result->getRecords();
-	
 ?>
 
     <div class="jumbotron">
@@ -44,8 +27,24 @@ $bread = array(
         <!--<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>-->
       </div>
     </div>
+    
 
     <div class="container">
+    
+    <?php
+    	// Error Checking.
+	if (FileMaker::isError($result)) {
+    	if ($result->code == 401)
+    		echo "<code>Error:</code> There are currently no students listed as interns. Please changes the 'Triage' field to Intern to add them to this page.";
+    	else
+    		echo "Error: " . $result->getMessage() . "\n";
+    	include "../layout/footer.php";
+    	exit;
+	}
+
+	// Get array of found records
+	$records = $result->getRecords();
+     ?>
 
 	<table class="table table-hover" style="width: 80%; margin: 0px auto;">
 	<thead>

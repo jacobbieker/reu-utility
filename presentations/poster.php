@@ -1,12 +1,9 @@
 <?php
-/* 
- * Upload form for posters.
- */
-require ('../pw/login.php');
-include ('../layout/header.php');
-require_once ('FileMaker.php');
 include ('../databases.php');
-// Footer Breadcrumbs
+$pwAcc = getPermissions('posterUpload');
+require ('../pw/login.php');
+include "../layout/header.php";
+
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Presentations" => $webFront . "presentations/",
@@ -21,15 +18,6 @@ $bread = array(
 	$request->addSortRule('NameLast', 1, FILEMAKER_SORT_ASCEND);
 	$result = $request->execute();
 	
-
-	// Error Checking.
-	if (FileMaker::isError($result)) {
-    	echo "Error: " . $result->getMessage() . "\n";
-    	exit;
-	}
-
-	// Get array of found records
-	$records = $result->getRecords();
 ?>
 
     <div class="jumbotron">
@@ -43,6 +31,21 @@ If you have any issues using this upload form, please <a href="mailto:<?php echo
     </div>
     
     <div class="container">
+    
+    <?php
+    	// Error Checking.
+	if (FileMaker::isError($result)) {
+    	if ($result->code == 401)
+    		echo "<code>Error:</code> There are currently no students listed as interns. Please changes the 'Triage' field to Intern to add them to this page.";
+    	else
+    		echo "<code>Error:</code> " . $result->getMessage() . "\n";
+    	include "../layout/footer.php";
+    	exit;
+	}
+
+	// Get array of found records
+	$records = $result->getRecords();
+     ?>
 
 <form role="form" id="upload" class="form-horizontal" action="submit.php?type=poster" method="post" enctype="multipart/form-data">
 

@@ -1,13 +1,9 @@
 <?php
-/*
- * Logout page, ends the current session.
- */
-include ('../layout/header.php');
-require_once ('FileMaker.php');
-include ('../databases.php');
-$_SESSION['login'] = false;
+	include ('../databases.php');
+	include "../layout/header.php";
+	$_SESSION['login'] = "";
 	
-// Footer Breadcrumbs
+
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Logout" => "",
@@ -22,3 +18,7 @@ $bread = array(
         <!--<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>-->
       </div>
     </div>
+    
+  <div class="container">
+
+<?php include "../layout/footer.php"; ?>

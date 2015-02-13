@@ -1,18 +1,17 @@
 <?php
-/*
- * Main page for the faculty review center.
- * displays the names of all the faculty and
- * links to their individual suggested students list.
- */
-require ('../pw/login.php');
-include "../layout/header.php";
-require_once ('FileMaker.php');
 include ('../databases.php');
-// Footer breadcrumbs
+$pwAcc = getPermissions('applicantReview');
+require ('../pw/login.php');
+
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Applicant Review" => "",
 );
+
+$db_key = 'profs';
+$db_key2 = 'application';
+
 ?>
 
     <div class="jumbotron">
@@ -27,25 +26,27 @@ The students will be listed with links to their application information and lett
     <div class="container">
 
 <?php
-	
-	// Create a new Find All command for sorting
-	$findCommand =& $fm->newFindAllCommand('LabMatching Form');
 
-	// Sort professors in ascending order by Last name.
-	$findCommand->addSortRule('Professor_Lname', 1, FILEMAKER_SORT_ASCEND);
-
-	// Execute the find command to sort.
-	$result = $findCommand->execute();
-	
-
-	// Error checking.
+	$request = $fm->newFindAllCommand($db_layout[$db_key]);
+	$request->addSortRule('Professor_Lname', 1, FILEMAKER_SORT_ASCEND);
+	$result = $request->execute();
+    // Error Checking.
 	if (FileMaker::isError($result)) {
     	echo "Error: " . $result->getMessage() . "\n";
+    	include "../layout/footer.php";
     	exit;
 	}
+	
 
-	// Get array of sorted records.
+	// Get array of found records
 	$records = $result->getRecords();
+	
+	if(count($records) == 0) {
+		echo "<code>Error:</code> There are currently no professors in the database, to add faculty refer to the setup layout in Filemaker.";
+    	include "../layout/footer.php";
+    	exit;
+	}
+	
 	
 ?>
 
@@ -56,14 +57,18 @@ The students will be listed with links to their application information and lett
 <?php
 	$t = floor(count($records)/2);
 	if (count($records) > 2) {
-		$t = floor(count($records)/2)+1;
+		if (count($list) % 2 != 0) {
+			$t = floor(count($list)/2)+1;
+		}
+	} else {
+		if ($t == 0) $t = 1;
 	}
 	for($i=0; $i<$t; $i++) {
   		$record = $records[$i];
   		$badge;
   		
 		$prof = $record->getField('Professor_FullName');
-		$request = $fm->newFindCommand('Everything');
+		$request = $fm->newFindCommand($db_layout[$db_key2]);
 		$request->addFindCriterion('Possible PIs.', $prof);
 		$result = $request->execute(); // Execute find
 	
@@ -90,7 +95,7 @@ The students will be listed with links to their application information and lett
   		$badge;
   		
 		$prof = $record->getField('Professor_FullName');
-		$request = $fm->newFindCommand('Everything');
+		$request = $fm->newFindCommand($db_layout[$db_key2]);
 		$request->addFindCriterion('Possible PIs.', $prof);
 		$result = $request->execute(); // Execute find
 	

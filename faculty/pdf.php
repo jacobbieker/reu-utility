@@ -1,31 +1,49 @@
-<?php
-/* 
- * Displays the student's info pdf.
- */
 
+<?php 
+
+// Include the FileMaker API
+include ('../databases.php');
+$pwAcc = getPermissions('applicantReview');
 require ('../pw/login.php');
-require ('../databases.php');
+include "../layout/header.php";
+
+if (isset($_GET['recid'])){ 
+	$student = $fm->getRecordById($db_layout[$db_key], $_GET['recid']);
+
+	$url =  $webFront . "faculty/getPDF.php?-url=" . urlencode($student->getField('PDF'));
+
+	echo "<object data='" . $url . "' type='application/pdf' width='100%' height='100%'>
+ 
+  	<p>It appears you don't have a PDF plugin for this browser.
+ 	 No biggie... you can <a href='myfile.pdf'>click here to
+  	download the PDF file.</a></p>
+  
+	</object>";
+}
+
+?>
 
 
-if(!empty( $_GET['name'])){
-	$f = $_GET['name'];
-	$pdf = $webFront . $f .'.pdf'; // CHANGE THIS LATER.
-	$filename = $f . '.pdf'; /* Note: Always use .pdf at the end. */
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="<?php echo $webFront; ?>layout/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo $webFront ?>layout/js/display.js"></script>
 
-	header('Content-Transfer-Encoding: binary');
-	
-	  header( 'Cache-Control: public' );
-      header( 'Content-Description: File Transfer' );
-      header( "Content-Disposition: inline; filename='". $f . ".pdf'" );
-	  header('Content-type: application/pdf');
-      header( 'Content-Transfer-Encoding: binary' );
-	
-	//header('Content-Length: ' . filesize($pdf));
-	//header('Accept-Ranges: bytes');
-
-	readfile($pdf);
+  </body>
+  
+<style>
+html, body{
+   height: 100%;
+   min-height: 100%;
+   margin-bottom: 0px;
+   padding-bottom: 0px;
 }
 
 
-die( "ERROR: You do not have permission to view this file." );
-?>
+object {
+	display: block;
+}
+
+
+</style>
+
+</html>

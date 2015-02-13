@@ -1,7 +1,8 @@
 <?php
-include "../layout/header.php";
-require_once ('FileMaker.php');
 include ('../databases.php');
+$pwAcc = getPermissions('piEval');
+require ('../pw/login.php');
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "PI Evalution" => "",
@@ -16,16 +17,7 @@ $bread = array(
 	$request->addFindCriterion('Triage', 'Intern');
 	$request->addSortRule('NameLast', 1, FILEMAKER_SORT_ASCEND);
 	$result = $request->execute();
-	
 
-	// Error Checking.
-	if (FileMaker::isError($result)) {
-    	echo "Error: " . $result->getMessage() . "\n";
-    	exit;
-	}
-
-	// Get array of found records
-	$records = $result->getRecords();
 
  ?>
 
@@ -45,6 +37,21 @@ $bread = array(
 
     <div class="container">
     
+    <?php
+    	// Error Checking.
+	if (FileMaker::isError($result)) {
+    	if ($result->code == 401)
+    		echo "<code>Error:</code> There are currently no students listed as interns. Please changes the 'Triage' field to Intern, so that the PIs have a list of students to choose from on this page.";
+    	else
+    		echo "Error: " . $result->getMessage() . "\n";
+    	include "../layout/footer.php";
+    	exit;
+	}
+
+	// Get array of found records
+	$records = $result->getRecords();
+     ?>
+    
     
 <form id="eval" class="form-horizontal" role="form" method="post" action="submit.php?db_key=pi_eval">
 	<input name="block" value="1" type="hidden" />
@@ -55,7 +62,7 @@ $bread = array(
     <label for="InternName" class="col-sm-5 control-label">Select Your Intern</label>
     <div class="col-sm-5">
     	<select class="form-control" name="InternName" id="InternName">
-            <option selected="selected" value="no selection"></option>
+            <option selected="selected" value=""></option>
             <?php foreach ($records as $record) {
             	echo "<option value='" . str_replace("_", " ", $record->getField('NameFull')) . "'>" . str_replace("_", " ", $record->getField('NameFull')) . "</option>";
             } ?>

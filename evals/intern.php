@@ -1,5 +1,8 @@
 <?php
-	include "../layout/header.php";
+include ('../databases.php');
+$pwAcc = getPermissions('internEval');
+require ('../pw/login.php');
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Intern Evaluation" => "",

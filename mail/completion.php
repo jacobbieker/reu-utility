@@ -1,14 +1,6 @@
 <?php
-/*
- * Quick form for the administrator to send
- * an HTML formatted version of the application
- * completeness letter.
- */
-
-require_once ('FileMaker.php');
 include ('../databases.php');
-include ('../layout/header.php');
-// Footer Breadcrumbs
+include "../layout/header.php";
 $bread = array(
     $pgmAcronym . " Home" => $webFront,
     "Email Completion Letter" => ""
